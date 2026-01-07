@@ -1,0 +1,14 @@
+.report-list {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.report-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.report {
+    position: static;
+}

@@ -1,0 +1,40 @@
+<h1>Dashboard</h1>
+
+<!-- KPI Cards -->
+<div class="stats">
+  <div class="card">
+    <h3>Total Leads</h3>
+    <p>1245</p>
+  </div>
+
+  <div class="card">
+    <h3>New Leads</h3>
+    <p>32</p>
+  </div>
+
+  <div class="card">
+    <h3>Converted</h3>
+    <p>418</p>
+  </div>
+</div>
+
+<div class="charts">
+  <div class="chart-card">
+    <h3>Leads by Status</h3>
+    <canvas
+      baseChart
+      [type]="barChartType"
+      [data]="barChartData"
+      [options]="barChartOptions">
+    </canvas>
+  </div>
+
+  <div class="chart-card">
+    <h3>Lead Sources</h3>
+    <canvas
+      baseChart
+      [type]="pieChartType"
+      [data]="pieChartData">
+    </canvas>
+  </div>
+</div>
