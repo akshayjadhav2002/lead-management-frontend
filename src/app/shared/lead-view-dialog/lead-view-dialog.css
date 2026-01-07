@@ -1,0 +1,90 @@
+/* Dialog container */
+:host {
+  display: block;
+  padding: 20px;
+  font-family: Roboto, sans-serif;
+
+}
+
+/* Header */
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.dialog-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Status chip */
+.status-chip {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-chip.new {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.status-chip.converted {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-chip.contacted {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+/* Body */
+.dialog-body {
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+/* Info rows */
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.label {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.value {
+  font-weight: 500;
+  color: #111827;
+}
+
+/* Actions */
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+#close-btn{
+    background-color: #646464,
+}
+#edit-btn {
+    background-color:  #394558;
+}
+
+

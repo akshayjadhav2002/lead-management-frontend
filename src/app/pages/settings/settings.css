@@ -1,0 +1,26 @@
+.settings-card {
+  background: white;
+  padding: 20px;
+  max-width: 400px;
+  border-radius: 8px;
+}
+
+label {
+  display: block;
+  margin-bottom: 15px;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+
+button {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}

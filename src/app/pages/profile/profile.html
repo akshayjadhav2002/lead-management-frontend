@@ -1,0 +1,53 @@
+<div class="profile-page">
+
+  <!-- User Info Card -->
+  <div class="card">
+    <h2>My Profile</h2>
+
+    <div class="info">
+      <p><strong>Name:</strong> {{ currentUser.name }}</p>
+      <p><strong>Email:</strong> {{ currentUser.email }}</p>
+      <p>
+        <strong>Role:</strong>
+        <span class="role" [class.admin]="currentUser.role === 'ADMIN'">
+          {{ currentUser.role }}
+        </span>
+      </p>
+    </div>
+
+    <button class="logout" (click)="logout()">Logout</button>
+  </div>
+
+  <!-- Admin Section -->
+  <div class="card" *ngIf="currentUser.role === 'ADMIN'">
+    <h2>Sub Users</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let user of subUsers">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
+          <td>
+            <button mat-icon-button color="primary" matTooltip="Edit User">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" matTooltip="Delete User">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

@@ -1,0 +1,66 @@
+.profile-page {
+  margin-left: auto; /* sidebar width */
+  padding: 30px;
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+.card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+h2 {
+  margin-bottom: 15px;
+  color: #0f172a;
+}
+
+.info p {
+  margin: 8px 0;
+  color: #334155;
+}
+
+.role {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  background: #e2e8f0;
+}
+
+.role.admin {
+  background: #22c55e;
+  color: white;
+}
+
+.logout {
+  margin-top: 15px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.logout:hover {
+  background: #dc2626;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+  background: #f1f5f9;
+  color: #0f172a;
+}
