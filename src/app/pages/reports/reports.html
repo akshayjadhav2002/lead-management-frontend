@@ -1,11 +1,92 @@
-
-
-<div class="report">
 <h1>Reports</h1>
 
-<ul class="report-list">
-  <li>📊 Monthly Lead Report</li>
-  <li>📈 Conversion Analysis</li>
-  <li>🧾 Agent Performance</li>
-</ul>
+<!-- SUMMARY CARDS -->
+<div class="stats">
+  <div class="card">
+    <h3>Total Revenue</h3>
+    <p>₹ {{ totalRevenue | number }}</p>
+  </div>
+
+  <div class="card">
+    <h3>Converted Leads</h3>
+    <p>{{ convertedLeads }}</p>
+  </div>
+
+  <div class="card">
+    <h3>Sub Users</h3>
+    <p>{{ totalSubUsers }}</p>
+  </div>
+</div>
+
+<!-- DOWNLOAD REPORT SECTION -->
+<div class="download-section">
+  <h2>Download Excel Report</h2>
+
+  <div class="filters">
+    <mat-form-field appearance="outline">
+      <mat-label>Sub User</mat-label>
+      <mat-select [(value)]="selectedUser">
+        <mat-option *ngFor="let user of subUsers" [value]="user">
+          {{ user }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Start Date</mat-label>
+      <input matInput [matDatepicker]="startPicker" [(ngModel)]="startDate">
+      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+      <mat-datepicker #startPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>End Date</mat-label>
+      <input matInput [matDatepicker]="endPicker" [(ngModel)]="endDate">
+      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+      <mat-datepicker #endPicker></mat-datepicker>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="downloadReport()">
+      <mat-icon>download</mat-icon>
+      Download Excel
+    </button>
+  </div>
+</div>
+
+<!-- DOWNLOAD HISTORY TABLE -->
+<div class="table-section">
+  <h2>Report Download History</h2>
+
+  <table mat-table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="fileName">
+      <th mat-header-cell *matHeaderCellDef>File</th>
+      <td mat-cell *matCellDef="let row">{{ row.fileName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="subUser">
+      <th mat-header-cell *matHeaderCellDef>Sub User</th>
+      <td mat-cell *matCellDef="let row">{{ row.subUser }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dateRange">
+      <th mat-header-cell *matHeaderCellDef>Date Range</th>
+      <td mat-cell *matCellDef="let row">{{ row.dateRange }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="downloadedBy">
+      <th mat-header-cell *matHeaderCellDef>Downloaded By</th>
+      <td mat-cell *matCellDef="let row">{{ row.downloadedBy }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="downloadedAt">
+      <th mat-header-cell *matHeaderCellDef>Downloaded At</th>
+      <td mat-cell *matCellDef="let row">{{ row.downloadedAt }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
 </div>
