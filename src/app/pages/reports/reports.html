@@ -1,92 +1,154 @@
-<h1>Reports</h1>
+<div class="container-fluid py-4">
+  <h1 class="mb-4">Reports</h1>
 
-<!-- SUMMARY CARDS -->
-<div class="stats">
-  <div class="card">
-    <h3>Total Revenue</h3>
-    <p>₹ {{ totalRevenue | number }}</p>
+  <!-- SUMMARY CARDS -->
+  <div class="row g-3 mb-4">
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title text-muted mb-2">Total Revenue</h5>
+          <p class="fs-3 fw-bold mb-0 text-primary">₹ {{ totalRevenue | number }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title text-muted mb-2">Converted Leads</h5>
+          <p class="fs-3 fw-bold mb-0 text-success">{{ convertedLeads }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title text-muted mb-2">Sub Users</h5>
+          <p class="fs-3 fw-bold mb-0 text-info">{{ totalSubUsers }}</p>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="card">
-    <h3>Converted Leads</h3>
-    <p>{{ convertedLeads }}</p>
+  <!-- DOWNLOAD REPORT SECTION -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+      <h5 class="card-title mb-4">Download Excel Report</h5>
+
+      <div class="row g-3">
+        <div class="col-md-3">
+          <label for="selected-user" class="form-label">Select User</label>
+          <select name="user" class="form-select" id="selected-user">
+            @for(user of subUsers; track user){
+              <option [value]="user">{{ user }}</option>
+            }@empty {
+              <option value="error">Error in User List</option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-3">
+          <label for="start-date" class="form-label">Start Date</label>
+          <input type="date" class="form-control" id="start-date" [(ngModel)]="startDate">
+        </div>
+
+        <div class="col-md-3">
+          <label for="end-date" class="form-label">End Date</label>
+          <input type="date" class="form-control" id="end-date" [(ngModel)]="endDate">
+        </div>
+
+        <div class="col-md-3 d-flex align-items-end">
+          <button class="btn btn-success w-100" (click)="downloadReport()">
+            <i class="bi bi-download me-2"></i>Download Excel
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="card">
-    <h3>Sub Users</h3>
-    <p>{{ totalSubUsers }}</p>
+  <!-- DOWNLOAD HISTORY TABLE -->
+  <div class="card border-0 shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title mb-4">Report Download History</h5>
+
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>File</th>
+              <th>Sub User</th>
+              <th>Date Range</th>
+              <th>Downloaded By</th>
+              <th>Downloaded At</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(row of paginatedData; track row){
+              <tr>
+                <td>{{ row.fileName }}</td>
+                <td>{{ row.subUser }}</td>
+                <td>{{ row.dateRange }}</td>
+                <td>{{ row.downloadedBy }}</td>
+                <td>{{ row.downloadedAt }}</td>
+              </tr>
+            }@empty {
+              <tr>
+                <td colspan="5" class="text-center text-muted py-4">
+                  No download history available
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <!-- PAGINATION -->
+      <nav aria-label="Table pagination" class="mt-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="text-muted small">
+            Showing {{ (currentPage - 1) * pageSize + 1 }} to {{ Math.min(currentPage * pageSize, totalRecords) }} of {{ totalRecords }} entries
+          </div>
+          
+          <div class="d-flex gap-2 align-items-center">
+            <select class="form-select form-select-sm" style="width: auto;" [(ngModel)]="pageSize" (change)="onPageSizeChange()">
+              <option [value]="5">5</option>
+              <option [value]="10">10</option>
+              <option [value]="20">20</option>
+            </select>
+            
+            <ul class="pagination pagination-sm mb-0">
+              <li class="page-item" [class.disabled]="currentPage === 1">
+                <a class="page-link" (click)="goToPage(1)" aria-label="First">
+                  <span aria-hidden="true">&laquo;&laquo;</span>
+                </a>
+              </li>
+              <li class="page-item" [class.disabled]="currentPage === 1">
+                <a class="page-link" (click)="goToPage(currentPage - 1)" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              
+              @for(page of getPageNumbers(); track page){
+                <li class="page-item" [class.active]="page === currentPage">
+                  <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+                </li>
+              }
+              
+              <li class="page-item" [class.disabled]="currentPage === totalPages">
+                <a class="page-link" (click)="goToPage(currentPage + 1)" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+              <li class="page-item" [class.disabled]="currentPage === totalPages">
+                <a class="page-link" (click)="goToPage(totalPages)" aria-label="Last">
+                  <span aria-hidden="true">&raquo;&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
   </div>
-</div>
-
-<!-- DOWNLOAD REPORT SECTION -->
-<div class="download-section">
-  <h2>Download Excel Report</h2>
-
-  <div class="filters">
-    <mat-form-field appearance="outline">
-      <mat-label>Sub User</mat-label>
-      <mat-select [(value)]="selectedUser">
-        <mat-option *ngFor="let user of subUsers" [value]="user">
-          {{ user }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Start Date</mat-label>
-      <input matInput [matDatepicker]="startPicker" [(ngModel)]="startDate">
-      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-      <mat-datepicker #startPicker></mat-datepicker>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>End Date</mat-label>
-      <input matInput [matDatepicker]="endPicker" [(ngModel)]="endDate">
-      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-      <mat-datepicker #endPicker></mat-datepicker>
-    </mat-form-field>
-
-    <button mat-raised-button color="primary" (click)="downloadReport()">
-      <mat-icon>download</mat-icon>
-      Download Excel
-    </button>
-  </div>
-</div>
-
-<!-- DOWNLOAD HISTORY TABLE -->
-<div class="table-section">
-  <h2>Report Download History</h2>
-
-  <table mat-table [dataSource]="dataSource">
-
-    <ng-container matColumnDef="fileName">
-      <th mat-header-cell *matHeaderCellDef>File</th>
-      <td mat-cell *matCellDef="let row">{{ row.fileName }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="subUser">
-      <th mat-header-cell *matHeaderCellDef>Sub User</th>
-      <td mat-cell *matCellDef="let row">{{ row.subUser }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="dateRange">
-      <th mat-header-cell *matHeaderCellDef>Date Range</th>
-      <td mat-cell *matCellDef="let row">{{ row.dateRange }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="downloadedBy">
-      <th mat-header-cell *matHeaderCellDef>Downloaded By</th>
-      <td mat-cell *matCellDef="let row">{{ row.downloadedBy }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="downloadedAt">
-      <th mat-header-cell *matHeaderCellDef>Downloaded At</th>
-      <td mat-cell *matCellDef="let row">{{ row.downloadedAt }}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-
-  <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
 </div>

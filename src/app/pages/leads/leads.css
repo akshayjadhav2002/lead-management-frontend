@@ -1,171 +1,327 @@
-/* .search-box {
-  width: 300px;
-  margin-bottom: 20px;
-  display: block;
-}
-
-table {
-  width: 100%;
-}
-
-.status {
-  padding: 4px 10px;
-  border-radius: 12px;
-  background-color: #e5e7eb;
-}
-
-.status.converted {
-  background-color: #bbf7d0;
-  color: #166534;
-}
-
-:host ::ng-deep .mat-mdc-header-row {
-  background-color: #828386;
-}
-
-:host ::ng-deep .mat-mdc-header-cell {
-  color: white;
-  font-weight: 600;
-} */
-:root {
-  --primary: #4f46e5;   /* Indigo */
-  --accent: #06b6d4;    /* Cyan */
-  --success: #22c55e;   /* Green */
-  --warning: #f59e0b;   /* Amber */
+ /* Minimalistic Professional Color Palette */
+ :root {
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --success: #10b981;
+  --success-hover: #059669;
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
   --text-dark: #111827;
   --text-muted: #6b7280;
-  --bg-soft: #f9fafb;
+  --text-light: #9ca3af;
+  --border: #e5e7eb;
+  --bg-gray: #f9fafb;
+  --bg-hover: #f3f4f6;
 }
 
-
-h1 {
-  font-size: 26px;
-  font-weight: 700;
-  color: var(--text-dark);
-  margin-bottom: 20px;
-  animation: fadeSlideDown 0.6s ease;
+/* Add New Lead Button */
+.btn-gradient {
+  background: var(--primary);
+  color: white;
+  border: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-@keyframes fadeSlideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.search-box {
-  width: 320px;
-  margin-bottom: 22px;
-  transition: transform 0.3s ease;
+.btn-gradient:hover {
+  background: var(--primary-hover);
+  color: white;
+  box-shadow: 0 4px 6px rgba(79, 70, 229, 0.15);
 }
 
-.search-box:focus-within {
-  transform: translateY(-2px);
+.btn-gradient:active {
+  transform: scale(0.98);
 }
 
-/* Mobile */
-@media (max-width: 768px) {
-  .search-box {
-    width: 100%;
-  }
-}
-table {
-  width: 100%;
-  border-radius: 16px;
-  overflow: hidden;
-  background: #ffffff;
-  animation: fadeUp 0.6s ease;
+/* Search Wrapper */
+.search-wrapper .search-icon {
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  color: var(--text-light);
+  pointer-events: none;
 }
 
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-th.mat-header-cell {
-  background: linear-gradient(180deg, #f9fafb, #f3f4f6);
-  color: var(--text-muted);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-}
-tr.mat-row {
-  transition: background-color 0.25s ease, transform 0.15s ease;
+.search-wrapper input {
+  transition: all 0.2s ease;
 }
 
-tr.mat-row:hover {
-  background-color: var(--bg-soft);
-  transform: scale(1.005);
+.search-wrapper input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
 
-td.mat-cell {
-  font-size: 14px;
-  color: var(--text-dark);
-  padding: 14px 16px;
+/* Avatar Circle - Minimalistic */
+.avatar-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 13px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-.status {
+
+/* Status Badges - Minimalistic with subtle colors */
+.status-badge {
   display: inline-flex;
   align-items: center;
-  padding: 4px 14px;
-  border-radius: 999px;
-  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
   font-weight: 600;
-  background: #fffbeb;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.status-new {
+  background-color: #eff6ff;
+  color: #1e40af;
+}
+
+.status-contacted {
+  background-color: #fef3c7;
   color: #92400e;
-  animation: scaleIn 0.3s ease;
 }
 
-.status.converted {
-  background: #ecfdf5;
-  color: #166534;
+.status-qualified {
+  background-color: #f3e8ff;
+  color: #6b21a8;
 }
 
-@keyframes scaleIn {
-  from {
-    transform: scale(0.85);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-td.mat-cell button {
-  margin-right: 6px;
+.status-converted {
+  background-color: #d1fae5;
+  color: #065f46;
 }
 
-.mat-icon-button {
-  transition: transform 0.2s ease, background-color 0.2s ease;
+.status-lost {
+  background-color: #fee2e2;
+  color: #991b1b;
 }
 
-.mat-icon-button:hover {
-  transform: scale(1.15);
-  background-color: rgba(79, 70, 229, 0.08);
+/* Source Tag - Clean minimal style */
+.source-tag {
+  display: inline-block;
+  padding: 3px 8px;
+  background: white;
+  border-radius: 4px;
+  font-size: 12px;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  font-weight: 500;
 }
-mat-paginator {
-  margin-top: 18px;
-  border-radius: 14px;
-  background: #ffffff;
-  animation: fadeUp 0.6s ease;
+
+/* Table Styling - Clean & Minimal */
+.leads-table {
+  font-size: 14px;
 }
+
+.leads-table thead {
+  background-color: white;
+  border-bottom: 2px solid var(--border);
+}
+
+.leads-table thead th {
+  border: none;
+  padding: 14px 16px;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.leads-table tbody tr {
+  transition: background-color 0.15s ease;
+  border-bottom: 1px solid var(--border);
+}
+
+.leads-table tbody tr:hover {
+  background-color: var(--bg-gray);
+}
+
+.leads-table tbody td {
+  padding: 14px 16px;
+  vertical-align: middle;
+  color: var(--text-dark);
+}
+
+.leads-table tbody td a {
+  color: var(--primary);
+  transition: color 0.2s ease;
+}
+
+.leads-table tbody td a:hover {
+  color: var(--primary-hover);
+}
+
+/* Sortable Headers */
+.sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+.sortable:hover {
+  color: var(--primary);
+}
+
+.sortable svg {
+  opacity: 0.4;
+  transition: opacity 0.2s ease;
+}
+
+.sortable:hover svg {
+  opacity: 1;
+}
+
+/* Action Buttons - Ghost style for minimalism */
+.btn-sm {
+  padding: 6px 10px;
+  transition: all 0.15s ease;
+  border-width: 1px;
+  background: white;
+}
+
+.btn-outline-primary {
+  color: var(--primary);
+  border-color: var(--border);
+}
+
+.btn-outline-primary:hover {
+  background-color: #eff6ff;
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.btn-outline-primary:active {
+  background-color: #dbeafe;
+}
+
+.btn-outline-success {
+  color: var(--success);
+  border-color: var(--border);
+}
+
+.btn-outline-success:hover {
+  background-color: #d1fae5;
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.btn-outline-success:active {
+  background-color: #a7f3d0;
+}
+
+.btn-outline-danger {
+  color: var(--danger);
+  border-color: var(--border);
+}
+
+.btn-outline-danger:hover {
+  background-color: #fee2e2;
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.btn-outline-danger:active {
+  background-color: #fecaca;
+}
+
+/* Card Styling */
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.card-body {
+  background: white;
+}
+
+.card-footer {
+  border-radius: 0 0 12px 12px;
+  background-color: white;
+  border-top: 1px solid var(--border);
+}
+
+/* Pagination - Minimal & Clean */
+.pagination .page-link {
+  border: 1px solid var(--border);
+  color: var(--text-dark);
+  margin: 0 3px;
+  border-radius: 6px;
+  font-weight: 500;
+  background: white;
+  transition: all 0.15s ease;
+}
+
+.pagination .page-link:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.pagination .page-item.active .page-link {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+.pagination .page-item.disabled .page-link {
+  cursor: not-allowed;
+  opacity: 0.4;
+  background-color: var(--bg-gray);
+}
+
+/* Form Elements */
+.form-select,
+.form-control {
+  border-color: var(--border);
+  transition: all 0.2s ease;
+}
+
+.form-select:focus,
+.form-control:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+/* Header styling */
+h1 {
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-  h1 {
-    font-size: 22px;
-  }
-
-  th.mat-header-cell,
-  td.mat-cell {
-    padding: 12px 10px;
+  .leads-table {
     font-size: 13px;
   }
-}
 
+  .leads-table thead th,
+  .leads-table tbody td {
+    padding: 10px 8px;
+  }
+
+  .btn-sm {
+    padding: 5px 8px;
+  }
+
+  .avatar-circle {
+    width: 32px;
+    height: 32px;
+    font-size: 11px;
+  }
+}

@@ -1,23 +1,65 @@
-<aside class="sidebar">
-  <div class="logo">
-    Lead Management
+<aside class="sidebar position-fixed top-0 start-0 vh-100 d-flex flex-column" style="width: 260px;">
+  <!-- Logo Section -->
+  <div class="logo-section p-4 border-bottom">
+    <div class="d-flex align-items-center gap-2">
+      <div class="logo-icon d-flex align-items-center justify-content-center rounded-3" style="width: 40px; height: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 16 16">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+          <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+        </svg>
+      </div>
+      <div>
+        <h5 class="mb-0 fw-bold text-white">Lead Management</h5>
+        <small class="text-white-50">Admin Portal</small>
+      </div>
+    </div>
   </div>
 
-  <nav class="menu">
-    <a routerLink="/dashboard" routerLinkActive="active">
-      📊 Dashboard
+  <!-- Navigation Menu -->
+  <nav class="menu flex-grow-1 py-3">
+    <a routerLink="/dashboard" routerLinkActive="active" class="nav-link d-flex align-items-center gap-3 px-4 py-3 position-relative">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4zM3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.389.389 0 0 0-.029-.518z"/>
+        <path fill-rule="evenodd" d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A7.988 7.988 0 0 1 0 10zm8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3z"/>
+      </svg>
+      <span class="nav-text">Dashboard</span>
+      <div class="nav-indicator"></div>
     </a>
 
-    <a routerLink="/leads" routerLinkActive="active">
-      🧾 Leads
+    <a routerLink="/dashboard/leads" routerLinkActive="active" class="nav-link d-flex align-items-center gap-3 px-4 py-3 position-relative">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/>
+        <path d="M8.646 6.646a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L10.293 9 8.646 7.354a.5.5 0 0 1 0-.708zm-1.292 0a.5.5 0 0 0-.708 0l-2 2a.5.5 0 0 0 0 .708l2 2a.5.5 0 0 0 .708-.708L5.707 9l1.647-1.646a.5.5 0 0 0 0-.708z"/>
+      </svg>
+      <span class="nav-text">Leads</span>
+      <div class="nav-indicator"></div>
     </a>
 
-    <a routerLink="/reports" routerLinkActive="active">
-      📈 Reports
+    <a routerLink="/dashboard/reports" routerLinkActive="active" class="nav-link d-flex align-items-center gap-3 px-4 py-3 position-relative">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M4 11H2v3h2v-3zm5-4H7v7h2V7zm5-5v12h-2V2h2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3z"/>
+      </svg>
+      <span class="nav-text">Reports</span>
+      <div class="nav-indicator"></div>
     </a>
 
-    <a id="profile" routerLink="/profile" routerLinkActive="active">
-      👦 Profile
+    <a id="profile" routerLink="/dashboard/profile" routerLinkActive="active" class="nav-link d-flex align-items-center gap-3 px-4 py-3 position-relative">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+      </svg>
+      <span class="nav-text">Profile</span>
+      <div class="nav-indicator"></div>
     </a>
   </nav>
+
+  <!-- Footer Section (Optional) -->
+  <div class="sidebar-footer p-3 border-top">
+    <div class="d-flex align-items-center gap-2 text-white-50">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+      </svg>
+      <small>Version 2.1.0</small>
+    </div>
+  </div>
 </aside>

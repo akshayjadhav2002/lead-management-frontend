@@ -8,5 +8,9 @@ import { RouterModule } from '@angular/router';
   styleUrl: './sidebar.css',
 })
 export class Sidebar {
-
+logout() {
+  // clear token / session
+  localStorage.clear();
+  //this.router.navigate(['/login']);
+}
 }
