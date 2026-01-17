@@ -1,0 +1,32 @@
+  /* Layout Container */
+  .dashboard-layout {
+    position: relative;
+    min-height: 100vh;
+  }
+
+  /* Content Wrapper - Offset by sidebar width */
+  .content-wrapper {
+    margin-left: 260px; /* Same as sidebar width */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #f8f9fa;
+  }
+
+  /* Main Content Area */
+  .main-content {
+    flex: 1;
+    padding: 24px;
+  }
+
+  /* Footer stays at bottom */
+  app-footer {
+    margin-top: auto;
+  }
+
+  /* Responsive - Mobile */
+  @media (max-width: 768px) {
+    .content-wrapper {
+      margin-left: 0; /* Remove margin on mobile */
+    }
+  }

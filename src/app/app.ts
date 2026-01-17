@@ -8,8 +8,7 @@ import { Sidebar } from './layout/sidebar/sidebar';
   selector: 'app-root',
    imports: [
     RouterOutlet,
-    Footer,
-    Sidebar
+
   ],
   templateUrl: './app.html',
   styleUrl: './app.css'

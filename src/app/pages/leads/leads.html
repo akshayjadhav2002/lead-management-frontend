@@ -1,74 +1,197 @@
-<h1>Leads</h1>
+<div class="container-fluid py-4">
+  <!-- Header Section -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1 class="mb-1 fw-bold">Leads Management</h1>
+      <p class="text-muted mb-0">Manage and track your sales leads</p>
+    </div>
+    <button class="btn btn-gradient px-4">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="me-2" viewBox="0 0 16 16">
+        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+      </svg>
+      Add New Lead
+    </button>
+  </div>
 
-<mat-form-field appearance="outline" class="search-box">
-  <mat-label>Search leads</mat-label>
-  <input matInput placeholder="Search by name or email">
-</mat-form-field>
+  <!-- Search and Filter Section -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <div class="search-wrapper position-relative">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="search-icon position-absolute" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
+            <input 
+              type="text" 
+              class="form-control form-control-lg ps-5" 
+              placeholder="Search by name, email or phone..."
+              [(ngModel)]="searchTerm"
+              (input)="onSearch()">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <select class="form-select form-select-lg" [(ngModel)]="filterStatus" (change)="onFilterChange()">
+            <option value="">All Status</option>
+            <option value="New">New</option>
+            <option value="Contacted">Contacted</option>
+            <option value="Qualified">Qualified</option>
+            <option value="Converted">Converted</option>
+            <option value="Lost">Lost</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <select class="form-select form-select-lg" [(ngModel)]="filterSource" (change)="onFilterChange()">
+            <option value="">All Sources</option>
+            <option value="Website">Website</option>
+            <option value="Referral">Referral</option>
+            <option value="Social Media">Social Media</option>
+            <option value="Email Campaign">Email Campaign</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2">
+  <!-- Leads Table -->
+  <div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover leads-table mb-0">
+          <thead>
+            <tr>
+              <th (click)="sortBy('name')" class="sortable">
+                Name
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="ms-1" viewBox="0 0 16 16">
+                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                </svg>
+              </th>
+              <th (click)="sortBy('email')" class="sortable">
+                Email
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="ms-1" viewBox="0 0 16 16">
+                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                </svg>
+              </th>
+              <th>Status</th>
+              <th>Source</th>
+              <th>Date Added</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(lead of paginatedData; track lead.id){
+              <tr>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div class="avatar-circle me-3">
+                      {{ getInitials(lead.name) }}
+                    </div>
+                    <div>
+                      <div class="fw-semibold">{{ lead.name }}</div>
+                      <small class="text-muted">{{ lead.phone || 'No phone' }}</small>
+                    </div>
+                  </div>
+                </td>
+                <td class="align-middle">
+                  <a href="mailto:{{ lead.email }}" class="text-decoration-none">{{ lead.email }}</a>
+                </td>
+                <td class="align-middle">
+                  <span class="status-badge" [ngClass]="getStatusClass(lead.status)">
+                    {{ lead.status }}
+                  </span>
+                </td>
+                <td class="align-middle">
+                  <span class="source-tag">{{ lead.source }}</span>
+                </td>
+                <td class="align-middle text-muted">{{ lead.dateAdded }}</td>
+                <td class="align-middle">
+                  <div class="d-flex gap-2 justify-content-center">
+                    <button class="btn btn-sm btn-outline-primary" (click)="viewLead(lead)" title="View Details">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                        <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                      </svg>
+                    </button>
+                    <button class="btn btn-sm btn-outline-success" title="Edit Lead">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                      </svg>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" title="Delete Lead">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }@empty {
+              <tr>
+                <td colspan="6" class="text-center py-5">
+                  <div class="text-muted">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="mb-3 opacity-50" viewBox="0 0 16 16">
+                      <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                    </svg>
+                    <p class="mb-0">No leads found</p>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
 
-  
-  <!-- Name -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-    <td mat-cell *matCellDef="let lead">{{ lead.name }}</td>
-  </ng-container>
+      <!-- Pagination -->
+      <div class="card-footer bg-white border-top">
+        <nav aria-label="Table pagination">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="text-muted small">
+              Showing {{ (currentPage - 1) * pageSize + 1 }} to {{ Math.min(currentPage * pageSize, totalRecords) }} of {{ totalRecords }} leads
+            </div>
+            
+            <div class="d-flex gap-2 align-items-center">
+              <select class="form-select form-select-sm" style="width: auto;" [(ngModel)]="pageSize" (change)="onPageSizeChange()">
+                <option [value]="5">5</option>
+                <option [value]="10">10</option>
+                <option [value]="20">20</option>
+                <option [value]="50">50</option>
+              </select>
+              
+              <ul class="pagination pagination-sm mb-0">
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a class="page-link" (click)="goToPage(1)">
+                    <span>&laquo;&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a class="page-link" (click)="goToPage(currentPage - 1)">
+                    <span>&laquo;</span>
+                  </a>
+                </li>
+                
+                @for(page of getPageNumbers(); track page){
+                  <li class="page-item" [class.active]="page === currentPage">
+                    <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+                  </li>
+                }
+                
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <a class="page-link" (click)="goToPage(currentPage + 1)">
+                    <span>&raquo;</span>
+                  </a>
+                </li>
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <a class="page-link" (click)="goToPage(totalPages)">
+                    <span>&raquo;&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <!-- Email -->
-  <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-    <td mat-cell *matCellDef="let lead">{{ lead.email }}</td>
-  </ng-container>
-
-  <!-- Status -->
-  <ng-container matColumnDef="status">
-    <th mat-header-cell *matHeaderCellDef>Status</th>
-    <td mat-cell *matCellDef="let lead">
-      <span class="status" [class.converted]="lead.status === 'Converted'">
-        {{ lead.status }}
-      </span>
-    </td>
-  </ng-container>
-
-  <!-- Source -->
-  <ng-container matColumnDef="source">
-    <th mat-header-cell *matHeaderCellDef>Source</th>
-    <td mat-cell *matCellDef="let lead">{{ lead.source }}</td>
-  </ng-container>
-
-  <!-- Actions -->
-  <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef>Actions</th>
-    <td mat-cell *matCellDef="let lead">
-      <!-- <button mat-button color="primary">View</button>
-      <button mat-button color="warn">Delete</button> -->
-      
-  <!-- View -->
-  <button
-    mat-icon-button
-    color="primary"
-    matTooltip="View Lead"
-    (click)="viewLead(lead)"
-    >
-    <mat-icon>visibility</mat-icon>
-  </button>
-
-  <!-- Delete -->
-  <button
-    mat-icon-button
-    color="warn"
-    matTooltip="Delete Lead"
-    >
-    <mat-icon>delete</mat-icon>
-  </button>
-    </td>
-  </ng-container>
-
-  
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                 showFirstLastButtons
-                 aria-label="Select page of periodic elements">
-  </mat-paginator>

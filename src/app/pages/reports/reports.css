@@ -19,6 +19,22 @@ h1 {
   box-shadow: 0 8px 24px rgba(0,0,0,0.06);
   animation: fadeUp 0.5s ease;
 }
+/* Subtle top accent line */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(90deg, #4f46e5, #06b6d4);
+}
+
+/* Hover effect */
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.1);
+}
 
 .card h3 {
   font-size: 14px;
